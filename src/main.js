@@ -6,8 +6,9 @@ import SnakesScene from './scenes/SnakesScene';
 import TicTacToeScene from './scenes/TicTacToeScene';
 import LobbyScene from './scenes/LobbyScene';
 
-// Socket connection
-const socket = io('http://localhost:3001', {
+// Socket connection - works on Vercel!
+const socket = io({
+  path: '/api/socket',
   autoConnect: false
 });
 

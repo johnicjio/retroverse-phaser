@@ -17,64 +17,46 @@
 ✅ Up to 4 players
 ✅ Mobile-friendly
 
-## 🚀 Quick Start
+## 🚀 Deploy to Vercel (ONE CLICK)
 
-### Play Now
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/johnicjio/retroverse-phaser)
 
-Visit: **[Your Vercel URL]**
+**That's it!** Everything (frontend + backend) deploys to Vercel.
 
-1. Enter your name
-2. Click "Host Game" or enter room code to join
-3. Share room code with friends
-4. Select a game and play!
+### Manual Deploy
 
-### Run Locally
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+```
+
+## 🎮 How to Play
+
+1. Visit your Vercel URL
+2. Enter your name
+3. Click "Host Game" (you get a room code)
+4. Share room code with friends
+5. They enter code and click "Join"
+6. Select a game and play!
+
+## 🛠️ Run Locally
 
 ```bash
 # Install dependencies
 npm install
 
-# Start game server (Terminal 1)
-npm run server
-
-# Start frontend (Terminal 2)
+# Start dev server
 npm run dev
 
 # Open http://localhost:3000
 ```
 
-## 📦 Deploy
+**Note:** Multiplayer works locally too! Open multiple browser tabs.
 
-### Frontend (Vercel)
-
-1. Push to GitHub
-2. Import on Vercel
-3. Deploy automatically ✅
-
-### Backend (Railway/Render)
-
-**Option A: Railway** (Recommended)
-
-1. Go to [railway.app](https://railway.app)
-2. New Project → Deploy from GitHub
-3. Select this repo
-4. Set start command: `node server/index.js`
-5. Copy your Railway URL
-6. Update `src/main.js` line 8:
-   ```js
-   const socket = io('https://your-railway-url.railway.app');
-   ```
-
-**Option B: Render**
-
-1. Go to [render.com](https://render.com)
-2. New Web Service
-3. Connect GitHub repo
-4. Build: `npm install`
-5. Start: `node server/index.js`
-6. Update socket URL in `src/main.js`
-
-## 🎮 How to Play
+## 🎮 Game Rules
 
 ### Ludo
 
@@ -99,8 +81,8 @@ npm run dev
 ## 🛠️ Tech Stack
 
 - **Frontend**: Phaser 3 (game engine) + Vite
-- **Backend**: Node.js + Socket.io
-- **Deploy**: Vercel (frontend) + Railway (backend)
+- **Backend**: Socket.io (runs on Vercel Serverless)
+- **Deploy**: Vercel (everything in one place)
 
 ## 📁 Project Structure
 
@@ -108,18 +90,18 @@ npm run dev
 src/
 ├── main.js           # Entry point + socket setup
 ├── scenes/
-│   ├── MenuScene.js  # (unused, menu is HTML)
 │   ├── LobbyScene.js # Game selection
 │   ├── LudoScene.js  # Ludo board + UI
 │   ├── SnakesScene.js # Snakes board + UI
 │   └── TicTacToeScene.js # TTT board + UI
 
-server/
-├── index.js          # Socket.io server
-├── engines/
-│   ├── ludo.js       # Ludo game logic
-│   ├── snakes.js     # Snakes game logic
-│   └── ttt.js        # TTT game logic
+api/
+└── socket.js         # Socket.io serverless function
+
+server/engines/
+├── ludo.js           # Ludo game logic
+├── snakes.js         # Snakes game logic
+└── ttt.js            # TTT game logic
 ```
 
 ## 🎨 Customization
@@ -134,27 +116,15 @@ Edit `index.html` CSS gradients and Phaser scene colors.
 2. Load in Phaser: `this.load.audio('dice', 'sounds/dice.mp3')`
 3. Play: `this.sound.play('dice')`
 
-### Add More Games
-
-1. Create new scene in `src/scenes/`
-2. Add to `config.scene` array in `main.js`
-3. Add button in `LobbyScene.js`
-4. Create engine in `server/engines/`
-5. Add socket handlers in `server/index.js`
-
 ## 🐛 Troubleshooting
 
 **"Cannot connect to server"**
-- Make sure server is running (`npm run server`)
-- Check socket URL in `src/main.js`
+- Vercel serverless functions take 5-10 seconds to cold start
+- Refresh the page and try again
 
 **"Room not found"**
 - Room codes are case-sensitive
 - Rooms expire when all players leave
-
-**Game feels laggy**
-- Use Railway instead of free Render tier
-- Deploy server closer to players geographically
 
 ## 📝 License
 
@@ -165,6 +135,7 @@ MIT - Free to use and modify!
 Pull requests welcome! Ideas:
 - Add sound effects
 - Improve AI bot
+- Add particle effects on captures
 - Add chat feature
 - Mobile touch controls
 - More games (Chess, Checkers, etc.)
